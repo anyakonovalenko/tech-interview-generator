@@ -1,6 +1,12 @@
 # Tech Interview Generator
 
+[![Built with DSPy](https://img.shields.io/badge/built%20with-DSPy-blue)](https://github.com/stanfordnlp/dspy)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Generate high-quality technical interview questions instantly using AI. Perfect for hiring managers, interviewers, and anyone preparing for technical interviews.
+
+Built with [DSPy](https://github.com/stanfordnlp/dspy) - a framework for programming (not prompting) language models.
 
 ## Quick Start (2 minutes)
 

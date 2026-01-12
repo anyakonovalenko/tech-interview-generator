@@ -1,180 +1,129 @@
-# Tech Interview Generator with DSPy
+# Tech Interview Generator
 
-An open-source project to learn and understand **DSPy** (Declarative Self-improving Python) by building a practical technical interview question generator.
+Generate high-quality technical interview questions instantly using AI. Perfect for hiring managers, interviewers, and anyone preparing for technical interviews.
 
-## What is DSPy?
+## Quick Start (2 minutes)
 
-DSPy is a framework for **programming** language models, not **prompting** them. Instead of manually writing and tuning prompts, you declare what you want using signatures, and DSPy automatically optimizes the prompts and LLM interactions.
+```bash
+# 1. Clone and setup
+git clone https://github.com/anyakonovalenko/tech-interview-generator.git
+cd tech-interview-generator
+bash setup.sh
 
-Key concepts:
-- **Signatures**: Declarative specifications of input/output behavior (like type hints for LLM tasks)
-- **Modules**: Reusable components that combine signatures with prompting strategies
-- **Composition**: Build complex pipelines by chaining simple modules together
-- **Optimization**: DSPy can automatically tune prompts and weights for better performance
+# 2. Add your OpenAI API key to .env file
+# Get one at: https://platform.openai.com/api-keys
 
-## Project Goals
+# 3. Generate questions!
+python generate_question.py
+```
 
-This project serves two purposes:
-1. **Learn DSPy** through hands-on implementation
-2. **Build a useful tool** for generating technical interview questions
+## Usage
+
+### Interactive Mode (Easiest)
+
+```bash
+python generate_question.py
+```
+
+Follow the prompts to select:
+- Question type (Coding, ML Theory, ML Practical)
+- Topic (e.g., "binary trees", "neural networks")
+- Difficulty (easy, medium, hard)
+- Number of follow-up questions
+
+### Quick Mode
+
+```bash
+# Generate question on a specific topic
+python generate_question.py "dynamic programming"
+python generate_question.py "convolutional neural networks"
+python generate_question.py "graph algorithms"
+```
 
 ## Features
 
-Generate technical interview questions for:
-- Coding problems (algorithms & data structures)
-- ML scientist positions (theory & practical)
-- Multiple difficulty levels (easy, medium, hard)
-- Automatic follow-up question generation
-- Difficulty validation and assessment
+- **Multiple Question Types**: Coding/algorithms, ML theory, ML practical
+- **Smart Difficulty Levels**: Easy, medium, hard with automatic validation
+- **Follow-up Questions**: Get 1-4 related follow-ups automatically
+- **Instant Generation**: Powered by GPT-4o-mini for fast results
+- **No Prompt Engineering**: Built with DSPy for robust, reliable outputs
 
-## Project Structure
+## Example Output
 
+```
+==================================================
+       TECH INTERVIEW QUESTION GENERATOR
+==================================================
+
+Topic: binary search trees
+Type: coding
+Difficulty: medium
+
+------------------------------------------------------------
+Design and implement a function to find the kth smallest
+element in a Binary Search Tree (BST).
+
+Input: Root node of BST and integer k
+Output: The kth smallest element
+
+Example:
+    BST:     5
+           /   \
+          3     7
+         / \   / \
+        2   4 6   8
+
+    k = 3 → Output: 4
+
+Constraints:
+- Time complexity should be O(k) on average
+- Space complexity should be O(h) where h is tree height
+------------------------------------------------------------
+
+FOLLOW-UP QUESTIONS:
+1. How would you modify your solution to handle frequent
+   queries for different k values on the same BST?
+2. What changes are needed if the BST is modified frequently
+   with insertions and deletions?
+3. Can you solve this without using extra space?
+```
+
+## Use Cases
+
+- **Hiring Managers**: Generate diverse questions for technical interviews
+- **Interview Prep**: Practice with realistic interview questions
+- **Educators**: Create assignments and exam questions
+- **Self-Study**: Test your knowledge on specific topics
+
+## For Developers: Learning DSPy
+
+This project is built with [DSPy](https://dspy.ai/), a framework for programming (not prompting) language models. If you want to understand or extend the code:
+
+**Project Structure:**
 ```
 tech-interview-generator/
-├── src/
-│   └── interview_generator/
-│       ├── __init__.py          # Main exports
-│       ├── signatures.py        # DSPy signatures (task declarations)
-│       └── modules.py           # DSPy modules (reusable components)
-├── examples/
-│   ├── basic_usage.py           # Start here: simple examples
-│   ├── advanced_pipeline.py    # Complete interview pipelines
-│   └── understanding_dspy.py   # Learn DSPy concepts
-├── requirements.txt
-├── .env.example
-└── README.md
+├── generate_question.py     # Main CLI tool (start here!)
+├── setup.sh                 # Quick setup script
+├── src/interview_generator/
+│   ├── signatures.py        # DSPy task declarations
+│   └── modules.py           # Question generation logic
+└── examples/                # Learning examples
+    ├── basic_usage.py
+    ├── advanced_pipeline.py
+    └── understanding_dspy.py
 ```
 
-## Quick Start
-
-### 1. Installation
-
+**Run the examples to learn DSPy:**
 ```bash
-# Clone the repository
-git clone https://github.com/anyakonovalenko/tech-interview-generator.git
-cd tech-interview-generator
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
+python examples/understanding_dspy.py  # Learn DSPy concepts
+python examples/basic_usage.py         # Simple usage
+python examples/advanced_pipeline.py   # Advanced patterns
 ```
 
-### 2. Configuration
-
-```bash
-# Copy the example environment file
-cp .env.example .env
-
-# Edit .env and add your OpenAI API key
-# OPENAI_API_KEY=your_key_here
-```
-
-### 3. Run Examples
-
-```bash
-# Start with basic examples
-python examples/basic_usage.py
-
-# Learn DSPy concepts
-python examples/understanding_dspy.py
-
-# Try advanced pipelines
-python examples/advanced_pipeline.py
-```
-
-## Usage Examples
-
-### Basic Question Generation
-
-```python
-import dspy
-from interview_generator import QuestionGenerator
-
-# Configure DSPy
-lm = dspy.LM('openai/gpt-4o-mini', api_key='your-key')
-dspy.configure(lm=lm)
-
-# Generate a question
-generator = QuestionGenerator()
-result = generator(
-    topic="binary search trees",
-    question_type="coding",
-    difficulty="medium"
-)
-
-print(result.question)
-```
-
-### Complete Interview Pipeline
-
-```python
-from interview_generator import InterviewPipeline
-
-pipeline = InterviewPipeline()
-result = pipeline(
-    topic="neural networks",
-    question_type="ml_theory",
-    difficulty="hard",
-    num_followups=3
-)
-
-print(f"Question: {result['question']}")
-print(f"Follow-ups: {result['followup_questions']}")
-```
-
-## Understanding DSPy Through This Project
-
-### 1. Signatures (signatures.py)
-
-Signatures declare what you want the LLM to do:
-
-```python
-class GenerateQuestion(dspy.Signature):
-    """Generate a technical interview question."""
-    topic: str = dspy.InputField(desc="The topic")
-    difficulty: str = dspy.InputField(desc="easy/medium/hard")
-    question: str = dspy.OutputField(desc="The generated question")
-```
-
-### 2. Modules (modules.py)
-
-Modules combine signatures with prompting techniques:
-
-```python
-class QuestionGenerator(dspy.Module):
-    def __init__(self):
-        super().__init__()
-        # ChainOfThought makes the model reason first
-        self.generate = dspy.ChainOfThought(GenerateQuestion)
-
-    def forward(self, topic, question_type, difficulty):
-        return self.generate(topic=topic, ...)
-```
-
-### 3. Composition
-
-Build complex workflows by chaining modules:
-
-```python
-class InterviewPipeline(dspy.Module):
-    def __init__(self):
-        self.question_gen = QuestionGenerator()
-        self.followup_gen = FollowUpGenerator()
-
-    def forward(self, ...):
-        question = self.question_gen(...)
-        followups = self.followup_gen(question, ...)
-        return {'question': question, 'followups': followups}
-```
-
-## Learn More About DSPy
-
-- [Official DSPy Documentation](https://dspy.ai/)
-- [DSPy GitHub Repository](https://github.com/stanfordnlp/dspy)
-- [DSPy Learning Resources](https://dspy.ai/learn/)
+**Resources:**
+- [DSPy Documentation](https://dspy.ai/)
+- [DSPy GitHub](https://github.com/stanfordnlp/dspy)
+- [Why DSPy?](https://dspy.ai/learn/) - No more prompt engineering!
 
 ## Contributing
 

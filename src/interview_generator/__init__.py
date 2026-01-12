@@ -11,7 +11,10 @@ from .signatures import (
 from .modules import (
     QuestionGenerator,
     FollowUpGenerator,
-    InterviewPipeline
+    InterviewPipeline,
+    CompleteInterviewGenerator,
+    CodingQuestionGenerator,
+    MLQuestionGenerator
 )
 
 __all__ = [
@@ -20,5 +23,8 @@ __all__ = [
     'AssessDifficulty',
     'QuestionGenerator',
     'FollowUpGenerator',
-    'InterviewPipeline'
+    'InterviewPipeline',
+    'CompleteInterviewGenerator',
+    'CodingQuestionGenerator',
+    'MLQuestionGenerator'
 ]
